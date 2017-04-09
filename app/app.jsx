@@ -4,7 +4,7 @@ var ReactBootstrap = require('react-bootstrap');
 // Object destructuring this will make Route,Router,IndexRoute,hashHistory will be set to react-router
 var { Route, Router, IndexRoute, hashHistory} = require('react-router');
 var TodoApp = require('TodoApp');
-
+require('style-loader!css-loader!foundation-sites/dist/css/foundation.min.css');
 $(document).foundation();
 
 // App css
