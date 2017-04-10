@@ -30,9 +30,12 @@ var TodoApp = createReactClass({
       ]
     };
   },
+  // this handles the input box for adding the todos
   handleAddTodo: function (text) {
     alert('new todo: ' + text);
   },
+  // this will handle the search input box
+  // the showCompleted will be set to showCompleted and searchText will be lower cased
   handleSearch: function (showCompleted, searchText) {
     this.setState({
       showCompleted: showCompleted,
