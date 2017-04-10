@@ -19,6 +19,7 @@ var TodoList = createReactClass({
         // the ...todo will let you pass all the property/attribute from an object as a props
         // without you defining everything
         // this is a spread operator
+        // set onToggle function to be equal to the props.onToggle
         return (
           <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
         )

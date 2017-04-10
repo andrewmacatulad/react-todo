@@ -60,14 +60,23 @@ var TodoApp = createReactClass({
       ]
     })
   },
+  // this will handle the toggle for the checkbox
   handleToggle: function (id){
+    // first set the variable as a map so it will take and call the function on all the element in the array map
+    // so you can make change on it
+    // and make an arrow function with one argument which is todo
+
     var updatedTodos = this.state.todos.map((todo) => {
-      if(todo.id=== id){
+      // check if todo id and the id that is pass in are equal if yes
+      if(todo.id === id){
+        // make todo completed to be equal to the opposite on the value of it
+        // so it will toggle to true/false
         todo.completed = !todo.completed;
       }
+      // then return the todo
       return todo;
     });
-
+    // now set the state of the todos to be equal to the variable you created
     this.setState({todos:updatedTodos});
   },
   // this will handle the search input box
