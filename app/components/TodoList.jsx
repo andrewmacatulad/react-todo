@@ -20,7 +20,7 @@ var TodoList = createReactClass({
         // without you defining everything
         // this is a spread operator
         return (
-          <Todo key={todo.id} {...todo}/>
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
         )
       })
     };
