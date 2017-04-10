@@ -1,8 +1,11 @@
 var React = require('react');
 var createReactClass = require('create-react-class')
+var uuid = require('node-uuid')
+
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch')
+
 
 // set the initial state of the todos and set the properties and add the items on it
 var TodoApp = createReactClass({
@@ -12,19 +15,19 @@ var TodoApp = createReactClass({
         searchText: '',
         todos: [
         {
-          id: 1,
+          id: uuid(),
           text: 'Fuck you ka'
         },
         {
-          id: 2,
+          id: uuid(),
           text: 'Tang ina mo'
         },
         {
-          id: 3,
+          id: uuid(),
           text: 'Putang ina mo'
         },
         {
-          id: 4,
+          id: uuid(),
           text: 'Tarantado ka'
         }
       ]
@@ -32,7 +35,16 @@ var TodoApp = createReactClass({
   },
   // this handles the input box for adding the todos
   handleAddTodo: function (text) {
-    alert('new todo: ' + text);
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          id: uuid(),
+          text: text
+
+        }
+      ]
+    })
   },
   // this will handle the search input box
   // the showCompleted will be set to showCompleted and searchText will be lower cased
