@@ -5,7 +5,7 @@ var uuid = require('uuid')
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch')
-
+var TodoAPI = require('TodoAPI')
 
 // set the initial state of the todos and set the properties and add the items on it
 var TodoApp = createReactClass({
@@ -13,29 +13,12 @@ var TodoApp = createReactClass({
     return {
         showCompleted: false,
         searchText: '',
-        todos: [
-        {
-          id: uuid(),
-          text: 'Fuck you ka',
-          completed: false
-        },
-        {
-          id: uuid(),
-          text: 'Tang ina mo',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Putang ina mo',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Tarantado ka'
-          ,completed: false
-        }
-      ]
+        todos: TodoAPI.getTodos()
+      
     };
+  },
+  componentDidUpdate: function () {
+    TodoAPI.setTodos(this.state.todos);
   },
 
   // this handles the input box for adding the todos
