@@ -13,11 +13,14 @@ var TodoApp = createReactClass({
     return {
         showCompleted: false,
         searchText: '',
+        // set the todos state to be equal to the todoapi.gettodos so you can use them
         todos: TodoAPI.getTodos()
-      
+
     };
   },
+  // use the componentdidupdate because it will run after the update of things
   componentDidUpdate: function () {
+    // this will set the setTodos to be equal to state.todos which is equal to the item you inputted
     TodoAPI.setTodos(this.state.todos);
   },
 
@@ -71,13 +74,14 @@ var TodoApp = createReactClass({
     });
   },
   render: function () {
-    var {todos} = this.state;
+    var {todos, showCompleted, searchText} = this.state;
+    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
     // set the todos from the todolist to todos state
     // with this you can now display all th todos and its items
     return(
       <div>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={todos} onToggle={this.handleToggle}/>
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
         <AddTodo onAddTodo={this.handleAddTodo}/>
       </div>
     )
