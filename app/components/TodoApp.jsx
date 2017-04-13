@@ -42,7 +42,9 @@ var TodoApp = createReactClass({
           // the text will be equal to the text that you will input
           text: text,
           completed: false,
+          // this will add a createdAt to be equal to moment().unix() as a default state
           createdAt: moment().unix(),
+          // Add a completedAt to undefined because no value yet in the state
           completedAt: undefined
         }
       ]
@@ -60,6 +62,9 @@ var TodoApp = createReactClass({
         // make todo completed to be equal to the opposite on the value of it
         // so it will toggle to true/false
         todo.completed = !todo.completed;
+        // then when you toggle check the todo.completed then execute moment().unix() if false
+        // the moment().unix() will be converted in the Todo.jsx to match the format you want
+        // set it to undefined
         todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       // then return the todo
@@ -83,9 +88,17 @@ var TodoApp = createReactClass({
     // with this you can now display all th todos and its items
     return(
       <div>
-        <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
-        <AddTodo onAddTodo={this.handleAddTodo}/>
+        <h1 className="page-title">Todo App</h1>
+
+        <div className="row">
+          <div className="column small-centered small-11 medium-6 large-5">
+            <div className="container">
+              <TodoSearch onSearch={this.handleSearch}/>
+              <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+              <AddTodo onAddTodo={this.handleAddTodo}/>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

@@ -7,6 +7,11 @@ var TodoList = createReactClass({
     // set todos as a props
     var {todos} = this.props;
     var renderTodos = () => {
+      if(todos.length === 0 ) {
+        return(
+          <p className="container__message">Nothing To Do</p>
+        )
+      }
       // to return something that you can return to the screen you use todos.map
       // use the todos props you set and use todos.map
       // it takes a function and calls the function for every element in the array
