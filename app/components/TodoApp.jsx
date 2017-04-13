@@ -1,6 +1,7 @@
 var React = require('react');
 var createReactClass = require('create-react-class')
 var uuid = require('uuid')
+var moment = require('moment');
 
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
@@ -40,8 +41,9 @@ var TodoApp = createReactClass({
           id: uuid(),
           // the text will be equal to the text that you will input
           text: text,
-          completed: false
-
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ]
     })
@@ -58,6 +60,7 @@ var TodoApp = createReactClass({
         // make todo completed to be equal to the opposite on the value of it
         // so it will toggle to true/false
         todo.completed = !todo.completed;
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       // then return the todo
       return todo;
