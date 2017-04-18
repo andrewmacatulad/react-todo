@@ -33,6 +33,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
     "css-loader": "^0.27.3",
+    "deep-freeze-strict": "^1.1.1",
     "expect": "^1.20.2",
     "file-loader": "^0.10.1",
     "foundation-sites": "^6.3.1",
