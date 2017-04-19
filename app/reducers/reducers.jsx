@@ -67,6 +67,8 @@ export var todosReducer = (state = [], action) => {
               // this is still like in the handletoggle which will get the time if true and undefined if false
               completedAt: nextCompleted ? moment().unix() : undefined
             }
+          } else {
+            return todo;
           }
         })
     default:

@@ -3,8 +3,8 @@ var createReactClass = require('create-react-class')
 var uuid = require('uuid')
 var moment = require('moment');
 
-var TodoList = require('TodoList');
-var AddTodo = require('AddTodo');
+import TodoList from 'TodoList';
+import AddTodo from 'AddTodo';
 var TodoSearch = require('TodoSearch')
 var TodoAPI = require('TodoAPI')
 
@@ -50,31 +50,6 @@ var TodoApp = createReactClass({
       ]
     })
   },
-  // this will handle the toggle for the checkbox
-  handleToggle: function (id){
-    // first set the variable as a map so it will take and call the function on all the element in the array map
-    // so you can make change on it
-    // and make an arrow function with one argument which is todo
-
-    var updatedTodos = this.state.todos.map((todo) => {
-      // check if todo id and the id that is pass in are equal if yes
-      if(todo.id === id){
-        // make todo completed to be equal to the opposite on the value of it
-        // so it will toggle to true/false
-        todo.completed = !todo.completed;
-        // then when you toggle check the todo.completed then execute moment().unix() if false
-        // the moment().unix() will be converted in the Todo.jsx to match the format you want
-        // set it to undefined
-        todo.completedAt = todo.completed ? moment().unix() : undefined;
-      }
-      // then return the todo
-      return todo;
-    });
-    // now set the state of the todos to be equal to the variable you created
-    this.setState({todos:updatedTodos});
-  },
-  // this will handle the search input box
-  // the showCompleted will be set to showCompleted and searchText will be lower cased
   handleSearch: function (showCompleted, searchText) {
     this.setState({
       showCompleted: showCompleted,
@@ -94,7 +69,7 @@ var TodoApp = createReactClass({
           <div className="column small-centered small-11 medium-6 large-5">
             <div className="container">
               <TodoSearch onSearch={this.handleSearch}/>
-              <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+              <TodoList/>
               <AddTodo onAddTodo={this.handleAddTodo}/>
             </div>
           </div>

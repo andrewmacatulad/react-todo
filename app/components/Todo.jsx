@@ -1,36 +1,32 @@
 var React = require('react');
 var createReactClass = require('create-react-class')
+var {connect} = require('react-redux');
 var moment = require('moment')
+// this will get from the actions/actions.jsx
+var actions = require('actions');
 
-var Todo = createReactClass({
+export var Todo = createReactClass({
   render: function() {
     // set the text and id which you have from the todoApp as a property for the todos
-    var {text, id, completed, createdAt, completedAt} = this.props;
+    var {text, id, completed, createdAt, completedAt, dispatch} = this.props;
 
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
 
-
-    // create a renderDate variable that will handle the created date and the completed date
     var renderDate = () => {
-      // first you set message and timestamp variables
       var message = 'Created ';
       var timestamp = createdAt;
-      // if it is completed
       if(completed) {
-        // set message to be Completed
-        // and timestamp to be equal to completedAt
-        // so that when you toggle it will change accordingly
         message = 'Completed ';
         timestamp = completedAt;
       }
-      // this will return the message which is Created + the timestamp which you get from the number in the TodoApp.handleToggle
-      // then format it to a better format
       return message + moment.unix(timestamp).format('MMM do YYYY @ h:mm a')
     }
     return (
-      // now you can get the id and text of each item in the todos
       <div className={todoClassName} onClick={() =>{
-          this.props.onToggle(id);
+          // now instead of this.props.onToggle(id)
+          // this.props.onToggle(id);
+          // you just use the dispatch to get the actions.toggleTodo and pass in the id
+          dispatch(actions.toggleTodo(id))
         }}>
         <div>
         <input type="checkbox" checked={completed}/>
@@ -44,4 +40,4 @@ var Todo = createReactClass({
   }
 })
 
-module.exports = Todo;
+export default connect()(Todo);

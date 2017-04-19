@@ -1,29 +1,23 @@
 var React = require('react');
 var createReactClass = require('create-react-class')
+var {connect} = require('react-redux');
+var actions = require('actions');
 
 
-
-var AddTodo = createReactClass({
-  // onSubmit function will handle when you submit or click the button for the form
+export var AddTodo = createReactClass({
   onSubmit:function (e) {
     e.preventDefault();
-    // set addTodos refs value
+    var {dispatch} = this.props
     var addTodos = this.refs.addtodos.value;
-    // check if addTodos is empty if not then
     if(addTodos.length > 0){
-      // empty the input box
     this.refs.addtodos.value = "";
-    // set the props onAddTodo to be equal to the addTodos refs which you will pass as a props onthe TodoApp
-    this.props.onAddTodo(addTodos);
+    // this.props.onAddTodo(addTodos);
+    dispatch(actions.addTodo(addTodos));
     } else {
-      // this will make the input box to be automatically focus
       this.refs.addtodos.focus();
     }
   },
   render: function () {
-    // set onSubmit as the onSubmit function
-    // set ref as addtodos for the input
-    // add a button
     return (
       <div className="container__footer">
         <form onSubmit={this.onSubmit}>
@@ -35,4 +29,4 @@ var AddTodo = createReactClass({
   }
 })
 
-module.exports = AddTodo;
+export default connect()(AddTodo);

@@ -1,8 +1,11 @@
 var React = require('react');
 var createReactClass = require('create-react-class')
-var Todo = require('Todo');
+// it is the companion of the provider
+// so the connect so components can access state properties and the dispatch method
+var {connect} = require('react-redux');
+import Todo from 'Todo'
 
-var TodoList = createReactClass({
+export var TodoList = React.createClass({
   render: function() {
     // set todos as a props
     var {todos} = this.props;
@@ -12,21 +15,10 @@ var TodoList = createReactClass({
           <p className="container__message">Nothing To Do</p>
         )
       }
-      // to return something that you can return to the screen you use todos.map
-      // use the todos props you set and use todos.map
-      // it takes a function and calls the function for every element in the array
-      // if you have an array 123 you will now have 234
       return todos.map((todo) => {
-        // when you are iterating over an array and you are generating multiple instances of a components
-        // you need to give the a unique key prop
-        // the unique key prop is the id
-        // you will now use the Todo.jsx {id} {text} that will be displayed in the todoApp
-        // the ...todo will let you pass all the property/attribute from an object as a props
-        // without you defining everything
-        // this is a spread operator
-        // set onToggle function to be equal to the props.onToggle
         return (
-          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+          // remove the onToggle method because there isnt a handleToggle
+          <Todo key={todo.id} {...todo}/>
         )
       })
     };
@@ -36,6 +28,10 @@ var TodoList = createReactClass({
       </div>
     )
   }
-})
+});
 
-module.exports = TodoList;
+export default connect((state) => {
+  return {
+    todos: state.todos
+  }
+})(TodoList);
