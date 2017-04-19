@@ -15,7 +15,7 @@ store.subscribe (() => {
 });
 
 var initialTodos = TodoAPI.getTodos();
-
+store.dispatch(actions.addTodos(initialTodos));
 
 // LOAD FOUNDATION
 require('style-loader!css-loader!foundation-sites/dist/css/foundation.min.css');
