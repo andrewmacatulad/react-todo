@@ -4,20 +4,28 @@ var createReactClass = require('create-react-class')
 // so the connect so components can access state properties and the dispatch method
 var {connect} = require('react-redux');
 import Todo from 'Todo'
+var TodoAPI = require('TodoAPI');
+
+
+
 
 export var TodoList = React.createClass({
   render: function() {
-    // set todos as a props
-    var {todos} = this.props;
+    var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       if(todos.length === 0 ) {
         return(
           <p className="container__message">Nothing To Do</p>
         )
       }
-      return todos.map((todo) => {
+      // return todos.map((todo) => {
+      //   return (
+      //     // remove the onToggle method because there isnt a handleToggle
+      //     <Todo key={todo.id} {...todo}/>
+      //   )
+      // })
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
         return (
-          // remove the onToggle method because there isnt a handleToggle
           <Todo key={todo.id} {...todo}/>
         )
       })
@@ -31,7 +39,5 @@ export var TodoList = React.createClass({
 });
 
 export default connect((state) => {
-  return {
-    todos: state.todos
-  }
+  return state;
 })(TodoList);

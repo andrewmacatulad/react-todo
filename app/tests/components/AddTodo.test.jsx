@@ -13,17 +13,19 @@ describe('AddTodo', () => {
 
   it('should dispatch ADD_TODO when valid text', () => {
     var todoText = "Fuck"
+    // add an action
     var action = {
       type: 'ADD_TODO',
       text: todoText
     }
     var spy = expect.createSpy();
-
+    // replace it with dispatch the spy
     var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
     var $el = $(ReactDOM.findDOMNode(addTodo));
     addTodo.refs.addtodos.value = todoText;
 
     TestUtils.Simulate.submit($el.find('form')[0]);
+    // check if spy is called with action
     expect(spy).toHaveBeenCalledWith(action);
   })
 

@@ -68,6 +68,7 @@ export var todosReducer = (state = [], action) => {
               completedAt: nextCompleted ? moment().unix() : undefined
             }
           } else {
+            // return todo if id is not match
             return todo;
           }
         })
