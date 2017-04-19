@@ -73,8 +73,23 @@ describe('Reducers', () => {
     })
 
   })
+    it('should add existing todos', () => {
+      var todos = [{
+        id: '111',
+        text: 'anything',
+        completed: false,
+        completedAt: undefined,
+        createdAt: 33000
+      }];
 
-  // defined todos array with realistic todo item
-  // generate action
-  // call reducer and assert completed flipped
+      var action = {
+        type: 'ADD_TODOS',
+        todos
+      };
+
+      var res = reducers.todosReducer(df([]), df(action))
+
+      expect(res.length).toEqual(1);
+      expect(res[0]).toEqual(todos[0]);
+    })
 })

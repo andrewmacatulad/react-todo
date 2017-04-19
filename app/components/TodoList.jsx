@@ -18,12 +18,9 @@ export var TodoList = React.createClass({
           <p className="container__message">Nothing To Do</p>
         )
       }
-      // return todos.map((todo) => {
-      //   return (
-      //     // remove the onToggle method because there isnt a handleToggle
-      //     <Todo key={todo.id} {...todo}/>
-      //   )
-      // })
+
+      // because you change things you now need to use the TodoAPI here with the filterTodos function
+      // then pass in todos, showCompleted and searchText then run the .map like before
       return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
         return (
           <Todo key={todo.id} {...todo}/>
