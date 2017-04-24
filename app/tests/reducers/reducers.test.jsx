@@ -35,7 +35,12 @@ describe('Reducers', () => {
     it('should add new todo', () =>{
       var action = {
         type: 'ADD_TODO',
-        text: 'Fuck you'
+        todo: {
+          id: '12345',
+          text: 'something fuck',
+          completed: false,
+          createdAt: 123124
+        }
       }
       // this will test the add todo reducer and you pass an empty array
       // and the action object you created
@@ -43,7 +48,7 @@ describe('Reducers', () => {
       // and check if the length of the it is equal to 1 which is yes because there is only 1 item in the array
       expect(res.length).toEqual(1);
       // and check if the text array you created will be equal to the action.text which is correct
-      expect(res[0].text).toEqual(action.text);
+      expect(res[0]).toEqual(action.todo);
     })
 
     it('should toggle todo', () => {

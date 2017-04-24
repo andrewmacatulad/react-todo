@@ -1,6 +1,10 @@
-var redux = require('redux');
+import * as redux from 'redux';
+// thunk is redux middleware
+// thunk you can have action generator that dont return object instead they return function which you can do async codes
+import thunk from 'redux-thunk';
+
 // set the reducers that you will call
-var {searchTextReducer, showCompletedReducer, todosReducer} = require('reducers');
+import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers';
 
 // create a configure function for the combineReducers for all the reducers that you will export
 export var configure = (initialState = {}) => {
@@ -11,6 +15,8 @@ export var configure = (initialState = {}) => {
   });
   // create a store that will be called so you can run the reducers and actions
   var store = redux.createStore(reducer, initialState, redux.compose(
+    // this will take a middleware function in this case is the thunk
+    redux.applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension(): f => f
   ));
   return store

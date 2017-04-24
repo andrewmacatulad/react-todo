@@ -35,16 +35,17 @@ export var todosReducer = (state = [], action) => {
         return [
           // this state is for adding all the values before
           ...state,
-          {
-            // now set the properties and its values
-            // this is like in the todoApp
-            id: uuid(),
-            // this is the only difference because this will get the action.text instead of a text in todo etc
-            text: action.text,
-            completed: false,
-            createdAt: moment().unix(),
-            completedAt: undefined
-          }
+          action.todo
+          // {
+          //   // now set the properties and its values
+          //   // this is like in the todoApp
+          //   id: uuid(),
+          //   // this is the only difference because this will get the action.text instead of a text in todo etc
+          //   text: action.text,
+          //   completed: false,
+          //   createdAt: moment().unix(),
+          //   completedAt: undefined
+          // }
         ];
 
         // add case for TOGGLE_TODO complete equal to opposite value & updateCompletedAt
