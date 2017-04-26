@@ -62,19 +62,25 @@ describe('Reducers', () => {
         completedAt: 125
       }]
 
+      var updates = {
+        completed: false,
+        completedAt: null
+      }
       // the id of the action must be the same as todos.id
       var action = {
-        type: 'TOGGLE_TODO',
-        id: '123'
+        type: 'UPDATE_TODO',
+        id: todos[0].id,
+        updates
       }
 
       // test the todosReducer toggle todo and pass the todos and action you just created
       var res = reducers.todosReducer(df(todos), df(action))
       // get the first item in both the todos and action and it will be link thru the id
       // and toggle it which will be true to false
-      expect(res[0].completed).toEqual(false);
+      expect(res[0].completed).toEqual(updates.completed);
       // because you set the if false the completedAt value will be undefined
-      expect(res[0].completedAt).toEqual(undefined);
+      expect(res[0].completedAt).toEqual(updates.completedAt);
+      expect(res[0].text).toEqual(todos[0].text)
     })
 
   })

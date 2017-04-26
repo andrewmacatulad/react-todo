@@ -26,7 +26,7 @@ export var Todo = createReactClass({
           // now instead of this.props.onToggle(id)
           // this.props.onToggle(id);
           // you just use the dispatch to get the actions.toggleTodo and pass in the id
-          dispatch(actions.toggleTodo(id))
+          dispatch(actions.startToggleTodo(id, !completed))
         }}>
         <div>
         <input type="checkbox" checked={completed}/>

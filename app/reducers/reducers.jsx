@@ -49,24 +49,20 @@ export var todosReducer = (state = [], action) => {
         ];
 
         // add case for TOGGLE_TODO complete equal to opposite value & updateCompletedAt
-      case 'TOGGLE_TODO':
+      case 'UPDATE_TODO':
       // this is like the handleToggle function in the TodoApp.jsx
       // the map will call your callback once every items in your array
       // so it will call every item in todo
         return state.map((todo) => {
           // now check if todo.id will be equal to the action.id
           if(todo.id === action.id) {
-            // this will just make a variable for the value opposite of the todo.completed
-            var nextCompleted = !todo.completed;
-
-            // now return an object
             return {
-              // this will get all the properties as a todo
+              // just return the spread todo
               ...todo,
-              // but this have different values which is completed will be equal to the reverse todo.completed
-              completed: nextCompleted,
-              // this is still like in the handletoggle which will get the time if true and undefined if false
-              completedAt: nextCompleted ? moment().unix() : undefined
+              // and return spread action.updates
+              // when you use multiple spread the new one will overwrite the old one
+              // and add if there is new and retain the old if there isn't value in the new one
+              ...action.updates
             }
           } else {
             // return todo if id is not match

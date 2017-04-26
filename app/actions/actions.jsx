@@ -62,9 +62,30 @@ export var addTodos = (todos) => {
 }
 
 // toggleTodo(id) TOGGLE_TODO
-export var toggleTodo = (id) => {
+export var updateTodo = (id, updates) => {
   return {
-    type: 'TOGGLE_TODO',
-    id
+    type: 'UPDATE_TODO',
+    id,
+    updates
   }
+}
+
+export var startToggleTodo = (id, completed) => {
+  return(dispatch, getState) => {
+    //  var todoRef = firebaseRef.child('todos/' + id);
+   // same as above but on es6
+   var todoRef = firebaseRef.child(`todos/${id}`);
+   // this object set the completed as completed and completedAt to be the time or null
+   var updates = {
+     completed,
+     completedAt: completed ? moment().unix() : null
+   }
+   // return the todoref update and it takes an object just pass in the created object above
+   // then use a promise
+   return todoRef.update(updates).then(() => {
+     // just dispatch an action updateTodo which you created above
+     dispatch(updateTodo(id, updates));
+   });
+
+  };
 }
