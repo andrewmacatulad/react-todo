@@ -13,56 +13,6 @@ describe('TodoAPI', () => {
     expect(TodoAPI).toExist();
   })
 
-  describe('setTodos', () => {
-    it('should set valid todos array', () => {
-      var todos = [{
-        id: 23,
-        text: 'test all files',
-        completed: false
-      }];
-      // set the todos to be equal to thte todos variable you just created
-      TodoAPI.setTodos(todos);
-      // set a variable to be equal to getting the array
-      // which you can get with parsing the item stored in todos
-      var actualTodos = JSON.parse(localStorage.getItem('todos'));
-      // now check if the actualTodos is equal to the todos variable you created here
-      // toEqual is use isntead of toBe when checking an array
-      expect(actualTodos).toEqual(todos);
-    });
-
-    it('should not set invalid todos array', () => {
-      // create an invalid array
-      var badTodos = {a: 'b'};
-      // set the todos to be that invalid array
-      TodoAPI.setTodos(badTodos);
-      // now check if the item you store is to be null because it is not valid
-      expect(localStorage.getItem('todos')).toBe(null)
-    })
-  }),
-
-  describe('getTodos', () => {
-    it('should return empty array for bad localStorage data', () => {
-      // get the Todos from TodoAPI which is empty
-      var actualTodos = TodoAPI.getTodos();
-      // then check if it is equal to an empty array
-      expect(actualTodos).toEqual([]);
-    });
-
-    it('should return todo if valid array in localStorage', () => {
-      var todos = [{
-        id: 23,
-        text: 'test all files',
-        completed: false
-      }];
-      // set the todos
-      localStorage.setItem('todos', JSON.stringify(todos));
-      // then get the todos from the todos you just created
-      var actualTodos = TodoAPI.getTodos()
-      // then check if the variable actualTodos is equal
-      // to the array you just created which is todo
-      expect(actualTodos).toEqual(todos)
-    })
-  });
   describe('filterTodos', () => {
     // create a todos variable so you can set the array and its objects
     var todos = [{
@@ -111,7 +61,7 @@ describe('TodoAPI', () => {
 
     it('should return all todos if searchText is empty', () => {
       var filteredTodos = TodoAPI.filterTodos(todos, true, '');
-      // because it is empty it will just display all 
+      // because it is empty it will just display all
       expect(filteredTodos.length).toBe(3);
     })
   })

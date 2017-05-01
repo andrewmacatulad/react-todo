@@ -98,13 +98,20 @@ describe('Actions', () => {
     var testTodoRef;
 
     beforeEach((done)=> {
-      testTodoRef = firebaseRef.child('todos').push();
-
-      testTodoRef.set({
-        text: 'fuck',
-        completed: false,
-        createdAt: 23453
+      var todosRef = firebaseRef.child('todos');
+      // wipe all the data first so it will be clean
+      todosRef.remove().then(() => {
+        // now you can add data
+        testTodoRef = firebaseRef.child('todos').push();
+        return testTodoRef.set({
+          text: 'fuck',
+          completed: false,
+          createdAt: 23453
+        })
+        // if goes well call done
       }).then(() => done())
+      // if not then catch and done
+      .catch(done);
     });
 
     afterEach((done) => {
@@ -131,5 +138,21 @@ describe('Actions', () => {
       }, done)
 
     });
+    it('should populate todos and dispatch ADD_TODOS', (done) => {
+      const store = createMockStore({});
+      const action = actions.startAddTodos();
+
+      store.dispatch(action).then(() => {
+        const mockActions = store.getActions();
+        // check if the type which you can get from mockActions is equal to add Todos
+        expect(mockActions[0].type).toEqual('ADD_TODOS')
+        // check if the length of todos is equal to 1
+        expect(mockActions[0].todos.length).toEqual(1);
+        //check if the first todos text is equal to fuck
+        expect(mockActions[0].todos[0].text).toEqual('fuck');
+        done();
+      }, done)
+
+    })
   })
 })

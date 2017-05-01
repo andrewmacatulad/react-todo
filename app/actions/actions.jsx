@@ -61,6 +61,33 @@ export var addTodos = (todos) => {
   }
 }
 
+export var startAddTodos = () => {
+  return(dispatch, getState) => {
+    var todoRef = firebaseRef.child('todos');
+    // fetching the data from the database
+    return todoRef.once('value').then((snapshot) => {
+      // create a todos variable which get all the value or set the object to empty
+      var todos = snapshot.val() || {};
+      // create an empty array variable that will be pass to redux because it expect an array
+      var parsedTodos = [];
+      // this returns an array there is one element for each key
+      // the forEach is a callback function that gets called on each item of the array
+      Object.keys(todos).forEach((todoId) => {
+        // now add the id which is set to be the todoId
+
+        parsedTodos.push({
+          id: todoId,
+        // and now grab all the properties in the todos and grab the object whos key is the todoId
+          ...todos[todoId],
+        });
+      });
+      // now dispatch the item
+      // just call the addTodos function and set the parsedTodos which you push the item too
+      dispatch(addTodos(parsedTodos));
+    });
+  }
+}
+
 // toggleTodo(id) TOGGLE_TODO
 export var updateTodo = (id, updates) => {
   return {

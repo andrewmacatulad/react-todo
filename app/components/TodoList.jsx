@@ -8,23 +8,24 @@ var TodoAPI = require('TodoAPI');
 
 
 
-
 export var TodoList = React.createClass({
   render: function() {
     var {todos, showCompleted, searchText} = this.props;
+
+
     var renderTodos = () => {
-      if(todos.length === 0 ) {
+      // instead of todos you need to use filteredTodos to check if todos are missing or not
+      var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
+      if(filteredTodos.length === 0 ) {
         return(
           <p className="container__message">Nothing To Do</p>
         )
       }
+      return filteredTodos.map((todo) => {
+          return (
+            <Todo key={todo.id} {...todo}/>
+          )
 
-      // because you change things you now need to use the TodoAPI here with the filterTodos function
-      // then pass in todos, showCompleted and searchText then run the .map like before
-      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
-        return (
-          <Todo key={todo.id} {...todo}/>
-        )
       })
     };
     return (
