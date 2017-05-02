@@ -17,6 +17,8 @@ try {
 
 }
 
+export var githubProvider = new firebase.auth.GithubAuthProvider();
+
 // ADDING DATA TO DATABASE
 export var firebaseRef = firebase.database().ref();
 export default firebase;

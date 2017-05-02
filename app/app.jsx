@@ -4,9 +4,11 @@ var {Provider} = require('react-redux');
 
 var { Route, Router, IndexRoute, hashHistory} = require('react-router');
 var TodoApp = require('TodoApp');
+import Login from 'Login'
 var actions = require('actions');
 var store = require('configureStore').configure();
 var TodoAPI = require('TodoAPI')
+
 
 // import './../playground/firebase/index';
 
@@ -29,11 +31,25 @@ $(document).foundation();
 // App css
 require('style-loader!css-loader!sass-loader!applicationStyles')
 
+var RoutingFunc = React.createClass({
+  render: function(){
+    return(
+      <Router history={hashHistory}>
+
+        <Route path="/">
+          <Route path="todos" component = {TodoApp}/>
+          <IndexRoute component = {Login}/>
+        </Route>
+      </Router>
+    )
+  }
+})
+
 
 ReactDOM.render(
 
   <Provider store={store}>
-    <TodoApp/>
+    <RoutingFunc/>
   </Provider>,
   document.getElementById('myBtn')
 )

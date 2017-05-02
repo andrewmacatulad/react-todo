@@ -2,7 +2,7 @@ var React = require('react');
 var createReactClass = require('create-react-class')
 var uuid = require('uuid')
 var moment = require('moment');
-
+var {Link, IndexLink} = require('react-router');
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch'
@@ -11,6 +11,12 @@ var TodoApp = createReactClass({
   render: function () {
     return(
       <div>
+
+        <div className="page-actions">
+          <IndexLink to='/'>Logout</IndexLink>
+        </div>
+
+
         <h1 className="page-title">Todo App</h1>
 
         <div className="row">
