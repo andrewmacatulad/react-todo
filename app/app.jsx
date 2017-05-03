@@ -1,14 +1,25 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var {Provider} = require('react-redux');
+var {hashHistory} = require('react-router');
 
-var { Route, Router, IndexRoute, hashHistory} = require('react-router');
-import TodoApp from 'TodoApp'
-import Login from 'Login'
+import firebase from 'app/firebase'
 var actions = require('actions');
 var store = require('configureStore').configure();
-var TodoAPI = require('TodoAPI')
+import router from 'app/router/'
 
+
+  // onAuthStateChanged takes only  function as an argument
+  // it get calleds with the user argument
+  // if the user is present it is logged in
+  // if the user is missing it is logged out
+firebase.auth().onAuthStateChanged((user) => {
+  if(user) {
+    hashHistory.push('/todos');
+  } else {
+    hashHistory.push('/');
+  }
+});
 
 // import './../playground/firebase/index';
 
@@ -31,25 +42,12 @@ $(document).foundation();
 // App css
 require('style-loader!css-loader!sass-loader!applicationStyles')
 
-var RoutingFunc = React.createClass({
-  render: function(){
-    return(
-      <Router history={hashHistory}>
 
-        <Route path="/">
-          <Route path="todos" component = {TodoApp}/>
-          <IndexRoute component = {Login}/>
-        </Route>
-      </Router>
-    )
-  }
-})
 
 
 ReactDOM.render(
-
   <Provider store={store}>
-    <RoutingFunc/>
+    {router}
   </Provider>,
   document.getElementById('myBtn')
 )

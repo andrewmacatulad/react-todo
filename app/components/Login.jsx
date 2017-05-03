@@ -2,7 +2,6 @@ var React = require('react');
 var createReactClass = require('create-react-class')
 var {Link, IndexLink} = require('react-router');
 import * as Redux from 'react-redux';
-
 import * as actions from 'actions'
 
 
@@ -28,6 +27,5 @@ var Login = createReactClass({
     )
   }
 })
-
 
 export default Redux.connect()(Login);

@@ -20,7 +20,7 @@ export var TodoApp = createReactClass({
       <div>
 
         <div className="page-actions">
-          <IndexLink to='/' onClick={this.onLoggedOut}>Logout</IndexLink>
+          <a onClick={this.onLoggedOut}>Logout</a>
         </div>
         <h1 className="page-title">Todo App</h1>
 
