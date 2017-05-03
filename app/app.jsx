@@ -14,9 +14,13 @@ import router from 'app/router/'
   // if the user is present it is logged in
   // if the user is missing it is logged out
 firebase.auth().onAuthStateChanged((user) => {
+  // if user is present it can go to /todos
   if(user) {
+    store.dispatch(actions.login(user.uid));
     hashHistory.push('/todos');
+    // if not it will redirect to /
   } else {
+    store.dispatch(actions.logout())
     hashHistory.push('/');
   }
 });

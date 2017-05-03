@@ -4,14 +4,15 @@ import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
 // set the reducers that you will call
-import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers';
+import {searchTextReducer, showCompletedReducer, todosReducer, authReducer} from 'reducers';
 
 // create a configure function for the combineReducers for all the reducers that you will export
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
     searchText: searchTextReducer,
     showCompleted: showCompletedReducer,
-    todos: todosReducer
+    todos: todosReducer,
+    auth: authReducer,
   });
   // create a store that will be called so you can run the reducers and actions
   var store = redux.createStore(reducer, initialState, redux.compose(

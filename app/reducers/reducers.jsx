@@ -1,6 +1,23 @@
 var uuid = require('node-uuid');
 var moment = require('moment');
 
+
+
+export var authReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'LOGIN':
+      return {
+        uid: action.uid
+      }
+
+    case 'LOGOUT':
+      return  {};
+
+    default:
+      return state;
+  }
+}
+
 // for Search Text Reducer
 // just make the default state to blank
 export var searchTextReducer = (state ='', action) => {
@@ -33,19 +50,8 @@ export var todosReducer = (state = [], action) => {
       case 'ADD_TODO':
       // return an array
         return [
-          // this state is for adding all the values before
           ...state,
           action.todo
-          // {
-          //   // now set the properties and its values
-          //   // this is like in the todoApp
-          //   id: uuid(),
-          //   // this is the only difference because this will get the action.text instead of a text in todo etc
-          //   text: action.text,
-          //   completed: false,
-          //   createdAt: moment().unix(),
-          //   completedAt: undefined
-          // }
         ];
 
         // add case for TOGGLE_TODO complete equal to opposite value & updateCompletedAt
