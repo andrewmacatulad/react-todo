@@ -17,6 +17,7 @@ firebase.auth().onAuthStateChanged((user) => {
   // if user is present it can go to /todos
   if(user) {
     store.dispatch(actions.login(user.uid));
+    store.dispatch(actions.startAddTodos());
     hashHistory.push('/todos');
     // if not it will redirect to /
   } else {
@@ -36,7 +37,7 @@ firebase.auth().onAuthStateChanged((user) => {
 // var initialTodos = TodoAPI.getTodos();
 // store.dispatch(actions.addTodos(initialTodos));
 
-store.dispatch(actions.startAddTodos());
+
 
 
 // LOAD FOUNDATION

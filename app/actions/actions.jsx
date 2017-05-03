@@ -44,8 +44,10 @@ export var startAddTodo = (text) => {
       // instead of undefined you use null because you will use it in firebase
       completedAt: null
     };
+
+    var uid = getState().auth.uid;
     // now add the todo to the todos you created child
-    var todoRef = firebaseRef.child('todos').push(todo);
+    var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
     // the then to sync with the firebase
     return todoRef.then(() => {
@@ -76,7 +78,8 @@ export var addTodos = (todos) => {
 
 export var startAddTodos = () => {
   return(dispatch, getState) => {
-    var todoRef = firebaseRef.child('todos');
+    var uid = getState().auth.uid;
+    var todoRef = firebaseRef.child(`users/${uid}/todos`);
     // fetching the data from the database
     return todoRef.once('value').then((snapshot) => {
       // create a todos variable which get all the value or set the object to empty
@@ -110,11 +113,14 @@ export var updateTodo = (id, updates) => {
   }
 }
 
+
+
 export var startToggleTodo = (id, completed) => {
   return(dispatch, getState) => {
     //  var todoRef = firebaseRef.child('todos/' + id);
    // same as above but on es6
-   var todoRef = firebaseRef.child(`todos/${id}`);
+    var uid = getState().auth.uid;
+   var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`);
    // this object set the completed as completed and completedAt to be the time or null
    var updates = {
      completed,
