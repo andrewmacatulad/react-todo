@@ -32,29 +32,6 @@ describe('Actions', () => {
     expect(res).toEqual(action);
 });
 
-  it('should create todo and dispatch ADD_TODO', (done) => {
-    // set the createdMockstore
-    const store = createMockStore({});
-    // set a todoText
-    const todoText = 'My item';
-    // dispatch if the actions is complete then
-    store.dispatch(actions.startAddTodo(todoText)).then(() => {
-      // the actions will shown up in the mockStore
-      const actions = store.getActions();
-      // now expect the first action element
-      // the toInclude is like toEquals but take object with some properties
-      expect(actions[0]).toInclude({
-        type: 'ADD_TODO'
-      });
-      expect(actions[0].todo).toInclude({
-        text: todoText
-      })
-      // done is a must here or else it will not end and will end up as an error
-      done();
-      // catch and just set done
-    }).catch(done);
-
-  })
 
     it('should generate Add Todos action object', () => {
       var todos = [{
@@ -115,30 +92,36 @@ describe('Actions', () => {
 
   describe('Tests with firebase todos', () => {
     var testTodoRef;
+    var uid;
+    var todosRef;
 
-    beforeEach((done)=> {
-      var todosRef = firebaseRef.child('todos');
-      // wipe all the data first so it will be clean
-      todosRef.remove().then(() => {
-        // now you can add data
-        testTodoRef = firebaseRef.child('todos').push();
+    beforeEach((done) => {
+
+      var credential = firebase.auth.TwitterAuthProvider.credential('754960361934102532-esLcPEQ6GQNETieCRMM8gDdR8NgKXG1', 'jLKLsg6dy207cSXxNcz17Ds9ISsJ33AaJ7nLd61DXIsGy');
+      firebase.auth().signInWithCredential(credential).then((user) => {
+        uid = user.uid;
+        todosRef = firebaseRef.child(`users/${uid}/todos`);
+
+        return todosRef.remove();
+      }).then(() => {
+        testTodoRef = todosRef.push();
+
         return testTodoRef.set({
-          text: 'fuck',
+          text: 'Something to do',
           completed: false,
-          createdAt: 23453
+          createdAt: 23453453
         })
-        // if goes well call done
-      }).then(() => done())
-      // if not then catch and done
+      })
+      .then(() => done())
       .catch(done);
     });
 
     afterEach((done) => {
-      testTodoRef.remove().then(() => done());
+      todosRef.remove().then(() => done());
     });
 
     it('should toggle todo and dispatch UPDATE_TODO action', (done) => {
-      const store = createMockStore({});
+      const store = createMockStore({auth: {uid}});
       const action = actions.startToggleTodo(testTodoRef.key, true)
       store.dispatch(action).then(() => {
         const mockActions = store.getActions();
@@ -158,7 +141,7 @@ describe('Actions', () => {
 
     });
     it('should populate todos and dispatch ADD_TODOS', (done) => {
-      const store = createMockStore({});
+      const store = createMockStore({auth: {uid}});
       const action = actions.startAddTodos();
 
       store.dispatch(action).then(() => {
@@ -168,9 +151,33 @@ describe('Actions', () => {
         // check if the length of todos is equal to 1
         expect(mockActions[0].todos.length).toEqual(1);
         //check if the first todos text is equal to fuck
-        expect(mockActions[0].todos[0].text).toEqual('fuck');
+        expect(mockActions[0].todos[0].text).toEqual('Something to do');
         done();
       }, done)
+
+    })
+
+    it('should create todo and dispatch ADD_TODO', (done) => {
+      // set the createdMockstore
+      const store = createMockStore({auth: {uid}});
+      // set a todoText
+      const todoText = 'My item';
+      // dispatch if the actions is complete then
+      store.dispatch(actions.startAddTodo(todoText)).then(() => {
+        // the actions will shown up in the mockStore
+        const actions = store.getActions();
+        // now expect the first action element
+        // the toInclude is like toEquals but take object with some properties
+        expect(actions[0]).toInclude({
+          type: 'ADD_TODO'
+        });
+        expect(actions[0].todo).toInclude({
+          text: todoText
+        })
+        // done is a must here or else it will not end and will end up as an error
+        done();
+        // catch and just set done
+      }).catch(done);
 
     })
   })

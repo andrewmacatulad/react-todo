@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import firebase, {firebaseRef, githubProvider} from 'app/firebase/index';
+import firebase, {firebaseRef, githubProvider, twitterProvider} from 'app/firebase/index';
 
 
 export var login = (uid) => {
@@ -113,8 +113,6 @@ export var updateTodo = (id, updates) => {
   }
 }
 
-
-
 export var startToggleTodo = (id, completed) => {
   return(dispatch, getState) => {
     //  var todoRef = firebaseRef.child('todos/' + id);
@@ -138,7 +136,8 @@ export var startToggleTodo = (id, completed) => {
 
 export var startLogin = () => {
   return (dispatch, getState) => {
-    return firebase.auth().signInWithPopup(githubProvider).then((result) => {
+    var credential = firebase.auth.TwitterAuthProvider.credential('754960361934102532-esLcPEQ6GQNETieCRMM8gDdR8NgKXG1', 'jLKLsg6dy207cSXxNcz17Ds9ISsJ33AaJ7nLd61DXIsGy');
+    return firebase.auth().signInWithCredential(credential).then((result) => {
       console.log('Auth worked!', result);
     }, (error) => {
       console.log('Unable to auth', error);

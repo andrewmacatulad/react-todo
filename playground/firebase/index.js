@@ -14,14 +14,14 @@ var config = {
 firebase.initializeApp(config);
 var firebaseRef = firebase.database().ref();
 
-// firebaseRef.set({
-//   appName: 'Fuck',
-  // isRunning: true,
-  // user: {
-  //   name: 'Andrew',
-  //   age: 28
-  // }
-// })
+firebaseRef.set({
+  appName: 'Fuck',
+  isRunning: true,
+  user: {
+    name: 'Andrew',
+    age: 28
+  }
+})
 
 firebaseRef.set({
     app: {
@@ -40,51 +40,48 @@ firebaseRef.set({
 })
 
 
-
-
-
 // set will completely wipe the first one and replace it with this
-//
-// firebaseRef.set({
-//   appName: 'Fuck ka'
-// })
+
+firebaseRef.set({
+  appName: 'Fuck ka'
+})
 // UPDATING DATA TO DATABASE
-// firebaseRef.child('app').set({
-//   name: 'Plue'
-// })
-//
+firebaseRef.child('app').set({
+  name: 'Plue'
+})
+
 // DELETING DATA FROM DATABASE
-// firebaseRef.remove();
-//
-// firebaseRef.child('app/name').remove();
-//
-// firebaseRef.child('app').update({
-//   version: '3.0',
-//   name: null
-// })
-//
+firebaseRef.remove();
+
+firebaseRef.child('app/name').remove();
+
+firebaseRef.child('app').update({
+  version: '3.0',
+  name: null
+})
+
 // FETCHING ALL DATA FROM DATABASE
-// firebaseRef.once('value').then((snapshot)=> {
-//   console.log('Got entire database', snapshot.val())
-// }, (e) => {
-//   console.log('Unable fetch value', e);
-// })
-//
+firebaseRef.once('value').then((snapshot)=> {
+  console.log('Got entire database', snapshot.val())
+}, (e) => {
+  console.log('Unable fetch value', e);
+})
+
 // FETCHING A CHILD DATA FROM DATABASE
-// firebaseRef.child('app').once('value').then((snapshot)=> {
-//   console.log('Got entire database', snapshot.val(), snapshot.key)
-// }, (e) => {
-//   console.log('Unable fetch values', e);
-// })
+firebaseRef.child('app').once('value').then((snapshot)=> {
+  console.log('Got entire database', snapshot.val(), snapshot.key)
+}, (e) => {
+  console.log('Unable fetch values', e);
+})
 // FETCHING DATA CONTINOUSLY USE THE ON
-// firebaseRef.child('user').on('value', (snapshot) => {
-//   console.log('Got value', snapshot.val())
-// })
+firebaseRef.child('user').on('value', (snapshot) => {
+  console.log('Got value', snapshot.val())
+})
 // TO OFF THE ON USE OFF
-// firebaseRef.child('user').off();
+firebaseRef.child('user').off();
 
 // BECAUSE YOU USE OFF THIS WILL NOT RUN
-// firebaseRef.child('user').update({name: "damn"})
+firebaseRef.child('user').update({name: "damn"})
 
 // WORKING WITH ARRAYS
 // Add the child

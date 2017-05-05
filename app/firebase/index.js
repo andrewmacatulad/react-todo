@@ -18,6 +18,7 @@ try {
 }
 
 export var githubProvider = new firebase.auth.GithubAuthProvider();
+export var twitterProvider = new firebase.auth.TwitterAuthProvider();
 
 // ADDING DATA TO DATABASE
 export var firebaseRef = firebase.database().ref();
